@@ -204,8 +204,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$email, $passwordHash, $fullName, $agencyName, $taxId, $taxId, $licenseRegistryType, $licenseNumber, $phone, $province, $municipality, $role, $token]);
         $newUserId = (int)$db->lastInsertId();
 
-        // Inicializar monedero con 3 créditos de bienvenida
-        $db->prepare("INSERT OR REPLACE INTO wallets (user_id, available_balance, total_granted) VALUES (?, 3.0, 3.0)")->execute([$newUserId]);
+        // Crear el monedero sin saldo: el bono solo se concede tras validar el correo.
+        $db->prepare("INSERT OR IGNORE INTO wallets (user_id, available_balance, total_granted) VALUES (?, 0.0, 0.0)")->execute([$newUserId]);
 
         // Vincular código de referido si existe
         if ($referralCode) {
@@ -296,11 +296,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$user['email_verified']) {
             $db->prepare("UPDATE users SET email_verified = 1, verification_status = 'approved', verification_token = NULL WHERE id = ?")->execute([$user['id']]);
 
-            // Asignar bono de bienvenida (3 créditos / 30 días, no acumulables)
+            // Asignar bono una sola vez al validar el correo.
             $expiresAt = date('Y-m-d H:i:s', strtotime('+30 days'));
-            $db->prepare("INSERT INTO wallets (user_id, available_balance) VALUES (?, 3.0) ON DUPLICATE KEY UPDATE available_balance = available_balance + 3.0")->execute([$user['id']]);
-            $db->prepare("INSERT INTO ledger (user_id, movement_type, credit_source, amount, balance_after, related_entity_type, related_entity_id, metadata) VALUES (?, 'bonus', 'welcome_bonus', 3.0, 3.0, 'welcome', ?, ?)")
-               ->execute([$user['id'], 'welcome_' . $user['id'] . '_' . time(), json_encode(['description' => 'Bono de bienvenida de 3 créditos (válido 30 días, no acumulable)', 'validity_days' => 30, 'expires_at' => $expiresAt, 'cumulative' => false])]);
+            $welcomeId = 'welcome_' . $user['id'];
+            $alreadyGranted = $db->prepare("SELECT COUNT(*) FROM ledger WHERE user_id = ? AND credit_source = 'welcome_bonus'");
+            $alreadyGranted->execute([$user['id']]);
+            if ((int)$alreadyGranted->fetchColumn() === 0) {
+                $db->prepare("INSERT OR IGNORE INTO wallets (user_id, available_balance, total_granted) VALUES (?, 0.0, 0.0)")->execute([$user['id']]);
+                $db->prepare("UPDATE wallets SET available_balance = available_balance + 3.0, total_granted = total_granted + 3.0, expires_at = ?, cumulative = 0, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?")
+                   ->execute([$expiresAt, $user['id']]);
+                $db->prepare("INSERT INTO ledger (user_id, movement_type, credit_source, amount, balance_after, status, related_entity_type, related_entity_id, metadata) VALUES (?, 'bonus', 'welcome_bonus', 3.0, 3.0, 'active', 'welcome', ?, ?)")
+                   ->execute([$user['id'], $welcomeId, json_encode(['description' => 'Bono de bienvenida de 3 créditos (válido durante tus primeros 30 días, no acumulable)', 'validity_days' => 30, 'expires_at' => $expiresAt, 'cumulative' => false])]);
+            }
         }
 
         $_SESSION['user_id'] = (int)$user['id'];
