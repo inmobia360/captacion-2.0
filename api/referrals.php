@@ -256,6 +256,12 @@ if ($action === 'verify_professional_license' && $_SERVER['REQUEST_METHOD'] === 
 
 // 4. VERIFICAR Y RECOMPENSAR HITO A (CARTERA XML: MÍNIMO 3 EXCLUSIVAS)
 if ($action === 'verify_milestone_a') {
+    // El antiguo hito XML (+3/+3) queda desactivado: las recompensas vigentes
+    // solo se conceden tras una operación validada por ambas partes.
+    http_response_code(409);
+    echo json_encode(['ok' => false, 'error' => 'Este hito histórico está desactivado. La recompensa se calculará tras validar una operación conforme al protocolo 50/50.']);
+    exit;
+
     $referredUserId = (int)($_POST['referred_user_id'] ?? 0);
     if ($referredUserId <= 0) {
         echo json_encode(['ok' => false, 'error' => 'Usuario referido no válido.']);

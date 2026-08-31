@@ -39,13 +39,8 @@ if ($action === 'status') {
     }
 
     if (!$wallet) {
-        // Inicializar monedero con 3 créditos de bienvenida (30 días, no acumulables)
-        $db->prepare("INSERT INTO wallets (user_id, available_balance, consumed_balance, pending_balance, total_granted, expires_at, cumulative) VALUES (?, 3.0, 0.0, 0.0, 3.0, datetime('now', '+30 days'), 0)")->execute([$userId]);
-        $wallet = ['available_balance' => 3.0, 'consumed_balance' => 0.0, 'pending_balance' => 0.0];
-
-        // Registrar apunte en el libro mayor contable (Ledger) con 30 días de caducidad (no acumulable)
-        $db->prepare("INSERT INTO ledger (user_id, movement_type, credit_source, amount, balance_after, status, metadata) VALUES (?, 'welcome_bonus', 'promotion', 3.0, 3.0, 'active', ?)")
-           ->execute([$userId, json_encode(['source' => 'welcome_promotion', 'validity_days' => 30, 'cumulative' => false, 'expires_at' => date('Y-m-d H:i:s', strtotime('+30 days'))])]);
+        $db->prepare("INSERT INTO wallets (user_id, available_balance, consumed_balance, pending_balance, total_granted) VALUES (?, 0.0, 0.0, 0.0, 0.0)")->execute([$userId]);
+        $wallet = ['available_balance' => 0.0, 'consumed_balance' => 0.0, 'pending_balance' => 0.0, 'expires_at' => null];
     }
 
     $plans = [

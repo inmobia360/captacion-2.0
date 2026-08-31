@@ -8,7 +8,7 @@ require_once __DIR__ . '/auth.php';
 header('Content-Type: application/json');
 
 $action = $_GET['action'] ?? $_POST['action'] ?? 'chat';
-$user = get_auth_user();
+$user = require_auth();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true) ?: $_POST;

@@ -42,23 +42,9 @@ $db->exec("CREATE TABLE IF NOT EXISTS import_batches (
 )");
 
 $action = $_GET['action'] ?? $_POST['action'] ?? 'list';
-$user = get_auth_user();
-if ($user && !empty($user['id'])) {
-    $userId = (int)$user['id'];
-    $userEmail = (string)($user['email'] ?? '');
-} else {
-    // Buscar un usuario válido existente en la BD para cumplir con la clave foránea
-    $userStmt = $db->query("SELECT id, email FROM users ORDER BY id ASC LIMIT 1");
-    $dbUser = $userStmt ? $userStmt->fetch(PDO::FETCH_ASSOC) : null;
-    if ($dbUser && !empty($dbUser['id'])) {
-        $userId = (int)$dbUser['id'];
-        $userEmail = (string)$dbUser['email'];
-    } else {
-        http_response_code(422);
-        echo json_encode(['ok' => false, 'error' => 'No existe un usuario válido para asociar la importación.']);
-        exit;
-    }
-}
+$user = require_auth();
+$userId = (int)$user['id'];
+$userEmail = (string)($user['email'] ?? '');
 
 // =========================================================================
 // HELPER: NORMALIZADOR SEMÁNTICO DE TIPOLOGÍAS INMOBILIARIAS

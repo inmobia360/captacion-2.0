@@ -343,6 +343,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(['ok' => false, 'error' => 'Tu cuenta se encuentra suspendida por moderación. Contacta con soporte.']);
             exit;
         }
+        if ((int)$user['email_verified'] !== 1) {
+            echo json_encode(['ok' => false, 'error' => 'Debes validar tu correo electrónico antes de iniciar sesión.']);
+            exit;
+        }
 
         session_regenerate_id(true);
         $_SESSION['user_id'] = (int)$user['id'];
