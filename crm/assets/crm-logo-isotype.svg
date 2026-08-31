@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Gradient for Isotype C -->
+    <linearGradient id="isoOnlyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#84CC16" />
+      <stop offset="35%" stop-color="#22C55E" />
+      <stop offset="70%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#1E40AF" />
+    </linearGradient>
+
+    <!-- Glass overlay for Isotype -->
+    <linearGradient id="isoGlassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.45" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.25" />
+    </linearGradient>
+
+    <filter id="isoShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded pill for crisp contrast -->
+  <rect width="100" height="100" rx="24" fill="#0B0F17" />
+  
+  <g filter="url(#isoShadow)" transform="translate(2, 0)">
+    <!-- Outer C shape -->
+    <path d="M 50,14 C 72,14 86,28 86,46 L 66,46 C 66,37 59,30 50,30 C 35,30 26,41 26,53 C 26,65 35,76 50,76 C 59,76 66,69 66,60 L 86,60 C 86,78 72,92 50,92 C 22,92 6,74 6,53 C 6,32 22,14 50,14 Z" fill="url(#isoOnlyGrad)" />
+    
+    <!-- Facet reflection -->
+    <path d="M 50,14 C 72,14 86,28 86,46 L 66,46 C 66,37 59,30 50,30 C 35,30 26,41 26,53 Z" fill="url(#isoGlassGrad)" />
+    <rect x="42" y="36" width="10" height="34" rx="3" fill="#FFFFFF" fill-opacity="0.3" transform="rotate(15, 47, 53)" />
+  </g>
+</svg>

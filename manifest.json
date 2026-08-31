@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "id": "compracaptacion-pwa-v1",
+  "name": "Compra Captación - Plataforma Inmobiliaria 50/50",
+  "short_name": "Compra Captación",
+  "description": "Plataforma de colaboración profesional inmobiliaria en España. Comparte captaciones exclusivas, cruza demandas y formaliza acuerdos 50/50 con trazabilidad digital.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0B1528",
+  "theme_color": "#1D4ED8",
+  "lang": "es-ES",
+  "dir": "ltr",
+  "categories": [
+    "business",
+    "productivity",
+    "real_estate"
+  ],
+  "icons": [
+    {
+      "src": "/assets/media/icon-192.png?v=4",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/media/icon-512.png?v=4",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/media/icon-maskable-512.png?v=4",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/media/apple-touch-icon.png?v=4",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Explorar Oportunidades",
+      "short_name": "Oportunidades",
+      "description": "Explora captaciones y demandas activas con reparto 50/50",
+      "url": "/#/oportunidades",
+      "icons": [
+        {
+          "src": "/assets/media/icon-192.png?v=4",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Publicar Captación",
+      "short_name": "Publicar",
+      "description": "Publica una nueva captación con blindaje de datos ciegos",
+      "url": "/#/publicar-inmueble",
+      "icons": [
+        {
+          "src": "/assets/media/icon-192.png?v=4",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Área Privada",
+      "short_name": "Mi Panel",
+      "description": "Accede a tus créditos, cruces y operaciones en curso",
+      "url": "/#/area-privada",
+      "icons": [
+        {
+          "src": "/assets/media/icon-192.png?v=4",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 336" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Gradiente del Isotipo Central 'C' -->
+    <linearGradient id="cIsotypeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#84CC16" />
+      <stop offset="25%" stop-color="#22C55E" />
+      <stop offset="65%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#1E40AF" />
+    </linearGradient>
+
+    <!-- Gradiente Verde para 'Comp' y 'Capta' y 'C' de CRM -->
+    <linearGradient id="limeBrandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#84CC16" />
+      <stop offset="100%" stop-color="#22C55E" />
+    </linearGradient>
+
+    <!-- Gradiente Azul para 'ra', 'ción' y 'RM' -->
+    <linearGradient id="blueBrandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+
+    <!-- Sombra suave para despegar en fondos oscuros y claros -->
+    <filter id="logoGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <g filter="url(#logoGlow)">
+    <!-- 1. ISOTIPO 'C' A LA IZQUIERDA -->
+    <g transform="translate(60, 48)">
+      <!-- Sombra interior -->
+      <path d="M 85,15 C 130,15 160,45 160,85 L 120,85 C 120,65 105,50 85,50 C 58,50 42,70 42,95 C 42,120 58,140 85,140 C 105,140 120,125 120,105 L 160,105 C 160,145 130,175 85,175 C 36,175 5,140 5,95 C 5,50 36,15 85,15 Z" fill="#000000" fill-opacity="0.15" transform="translate(0, 3)" />
+      
+      <!-- Isotipo principal -->
+      <path d="M 85,15 C 130,15 160,45 160,85 L 120,85 C 120,65 105,50 85,50 C 58,50 42,70 42,95 C 42,120 58,140 85,140 C 105,140 120,125 120,105 L 160,105 C 160,145 130,175 85,175 C 36,175 5,140 5,95 C 5,50 36,15 85,15 Z" fill="url(#cIsotypeGrad)" />
+      
+      <!-- Bisel de cristal superior -->
+      <path d="M 85,15 C 130,15 160,45 160,85 L 120,85 C 120,65 105,50 85,50 C 58,50 42,70 42,95 Z" fill="#FFFFFF" fill-opacity="0.3" />
+      <polygon points="120,105 160,105 160,145" fill="#0284C7" fill-opacity="0.5" />
+    </g>
+
+    <!-- 2. TEXTO CENTRAL: Compra Captación -->
+    <g transform="translate(265, 120)">
+      <!-- Compra -->
+      <text x="0" y="0" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="76" font-weight="900" letter-spacing="-1">
+        <tspan fill="url(#limeBrandGrad)">Comp</tspan><tspan fill="url(#blueBrandGrad)">ra</tspan>
+      </text>
+      <!-- Captación -->
+      <text x="0" y="72" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="76" font-weight="900" letter-spacing="-1">
+        <tspan fill="url(#limeBrandGrad)">Capta</tspan><tspan fill="url(#blueBrandGrad)">ción</tspan>
+      </text>
+    </g>
+
+    <!-- 3. LÍNEA VERTICAL SEPARADORA -->
+    <line x1="685" y1="58" x2="685" y2="240" stroke="#CBD5E1" stroke-width="4" stroke-linecap="round" />
+
+    <!-- 4. TEXTO DERECHO: CRM -->
+    <g transform="translate(715, 182)">
+      <text x="0" y="0" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="108" font-weight="900" letter-spacing="-2">
+        <tspan fill="url(#limeBrandGrad)">C</tspan><tspan fill="url(#blueBrandGrad)">RM</tspan>
+      </text>
+    </g>
+
+    <!-- 5. SUBTÍTULO INFERIOR: Soluciones Integrales para su Negocio -->
+    <text x="512" y="285" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="28" font-weight="600" fill="#3B82F6" letter-spacing="1" text-anchor="middle">
+      Soluciones Integrales para su Negocio
+    </text>
+  </g>
+</svg>

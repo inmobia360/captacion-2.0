@@ -1,0 +1,64 @@
+# CompraCaptación - LiteSpeed & Apache High Performance Configuration
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # HTTPS redirection
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Subdomain crm.compracaptacion.com & crm.compracaptació.com (punycode crm.xn--compracaptaci-skb.com) mapping
+    RewriteCond %{HTTP_HOST} ^(www\.)?crm\.compracaptacion\.com$ [NC,OR]
+    RewriteCond %{HTTP_HOST} ^(www\.)?crm\.xn--compracaptaci-skb\.com$ [NC,OR]
+    RewriteCond %{HTTP_HOST} ^(www\.)?crm\.compracaptaci[óo]\.com$ [NC]
+    RewriteCond %{REQUEST_URI} !^/crm/
+    RewriteCond %{REQUEST_URI} !^/api/
+    RewriteRule ^(.*)$ /crm/$1 [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Do not rewrite existing files or directories
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Route clean API paths
+    RewriteRule ^api/records/?$ api/records.php [L,QSA]
+    RewriteRule ^api/auth/?$ api/auth.php [L,QSA]
+    RewriteRule ^api/credits/?$ api/credits.php [L,QSA]
+    RewriteRule ^api/stripe/?$ api/stripe.php [L,QSA]
+    RewriteRule ^api/operations/?$ api/operations.php [L,QSA]
+    RewriteRule ^api/admin/?$ api/admin.php [L,QSA]
+    RewriteRule ^api/ai/?$ api/ai.php [L,QSA]
+    RewriteRule ^api/territories/?$ api/territories.php [L,QSA]
+
+    # Route everything else to index.php
+    RewriteRule . index.php [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    <FilesMatch "\.(?:css|js|png|jpg|jpeg|webp|avif|svg|woff2?|mp4|webm)$">
+        Header set Cache-Control "public, max-age=2592000, immutable"
+    </FilesMatch>
+</IfModule>
+
+# Caching Directives
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+</IfModule>

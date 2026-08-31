@@ -1,0 +1,161 @@
+﻿<?php
+require_once __DIR__ . '/api/database.php';
+$db = CaptacionDB::get();
+
+$properties = [
+    [
+        'record_type' => 'property',
+        'record_key' => 'prop_madrid_recoletos_01',
+        'user_id' => 1,
+        'user_email' => 'admin@compracaptacion.com',
+        'title' => 'Ático reformado con terraza en Recoletos / Salamanca',
+        'property_type' => 'piso',
+        'operation_type' => 'colaboracion_50_50',
+        'price' => 1250000,
+        'commission_percentage' => 50.0,
+        'commission_amount' => 18750.0,
+        'province' => 'Madrid',
+        'municipality' => 'Madrid',
+        'zone' => 'Barrio de Salamanca / Recoletos',
+        'address_public' => 'Calle de Claudio Coello (Zona Recoletos)',
+        'address_private' => 'Calle de Claudio Coello 34, 5º Dcha, 28001 Madrid. Contacto D. Juan: 600112233',
+        'bedrooms' => 3,
+        'bathrooms' => 2,
+        'surface_m2' => 165,
+        'is_exclusive' => 1,
+        'description_public' => 'Magnífica propiedad en finca clásica representativa. Totalmente reformado a estrenar con calidades de lujo, terraza orientada a mediodía, techos altos con molduras y chimenea.',
+        'description_private' => 'Exclusiva firmada hasta fin de año. Comisión total pactada: 3% + IVA. Llaves disponibles en oficina Salamanca.',
+        'images_json' => json_encode(['assets/media/property-defaults/piso-default.jpg']),
+        'features_json' => json_encode(['Terraza', 'Ascensor', 'Aire Acondicionado', 'Calefacción Individual', 'Exclusiva', 'Conserje']),
+        'status' => 'active',
+        'privacy_scope' => 'global_public'
+    ],
+    [
+        'record_type' => 'property',
+        'record_key' => 'prop_bcn_eixample_02',
+        'user_id' => 1,
+        'user_email' => 'admin@compracaptacion.com',
+        'title' => 'Piso modernista con techos volta catalana en Eixample Dret',
+        'property_type' => 'piso',
+        'operation_type' => 'colaboracion_50_50',
+        'price' => 690000,
+        'commission_percentage' => 50.0,
+        'commission_amount' => 10350.0,
+        'province' => 'Barcelona',
+        'municipality' => 'Barcelona',
+        'zone' => 'Eixample Dreta',
+        'address_public' => 'Passeig de Sant Joan / Girona',
+        'address_private' => 'Carrer de Girona 78, 2º 1ª, 08009 Barcelona. Propietaria Sra. Montserrat',
+        'bedrooms' => 3,
+        'bathrooms' => 2,
+        'surface_m2' => 120,
+        'is_exclusive' => 1,
+        'description_public' => 'Finca modernista catalogada. Mosaicos hidráulicos originales restaurados, techos altos con molduras y galería luminosa a patio de manzana típico.',
+        'description_private' => 'Colaboración abierta 50/50. Honorarios acordados 3%. Disponibilidad inmediata para visitas.',
+        'images_json' => json_encode(['assets/media/property-defaults/piso-default.jpg']),
+        'features_json' => json_encode(['Balcón', 'Ascensor', 'Suelos Hidráulicos', 'Finca Regia', 'Exclusiva']),
+        'status' => 'active',
+        'privacy_scope' => 'global_public'
+    ],
+    [
+        'record_type' => 'property',
+        'record_key' => 'prop_valencia_villa_03',
+        'user_id' => 1,
+        'user_email' => 'admin@compracaptacion.com',
+        'title' => 'Chalet independiente con piscina privada en Campolivar',
+        'property_type' => 'casa_chalet',
+        'operation_type' => 'venta_100',
+        'price' => 895000,
+        'commission_percentage' => 100.0,
+        'commission_amount' => 26850.0,
+        'province' => 'Valencia',
+        'municipality' => 'Godella',
+        'zone' => 'Campolivar Residencial',
+        'address_public' => 'Urbanización Campolivar',
+        'address_private' => 'Carrer dels Pins 12, Campolivar, 46110 Godella. Representante: 611223344',
+        'bedrooms' => 5,
+        'bathrooms' => 4,
+        'surface_m2' => 420,
+        'is_exclusive' => 1,
+        'description_public' => 'Villa contemporánea en parcela ajardinada de 1.200 m². Piscina infinity, porche cubierto con barbacoa, garaje triple y placas solares.',
+        'description_private' => 'Venta del 100% de la operación o traspaso de captación. Comisión íntegra de agencia acordada: 3%.',
+        'images_json' => json_encode(['assets/media/property-defaults/casa-chalet-default.jpg']),
+        'features_json' => json_encode(['Piscina', 'Jardín', 'Garaje Triple', 'Placas Solares', 'Domótica']),
+        'status' => 'active',
+        'privacy_scope' => 'global_public'
+    ],
+    [
+        'record_type' => 'need',
+        'record_key' => 'need_madrid_comprador_01',
+        'user_id' => 1,
+        'user_email' => 'admin@compracaptacion.com',
+        'title' => 'Tengo cliente comprador para piso de 3 hab en Chamberí / Salamanca',
+        'property_type' => 'piso',
+        'operation_type' => 'colaboracion_50_50',
+        'price' => 950000,
+        'commission_percentage' => 50.0,
+        'commission_amount' => 14250.0,
+        'province' => 'Madrid',
+        'municipality' => 'Madrid',
+        'zone' => 'Chamberí, Salamanca o Retiro',
+        'address_public' => 'Zona Centro-Norte de Madrid',
+        'address_private' => 'Cliente: Familia Gómez-López. Financiación 100% pre-aprobada con banca privada.',
+        'bedrooms' => 3,
+        'bathrooms' => 2,
+        'surface_m2' => 110,
+        'is_exclusive' => 0,
+        'description_public' => 'Cliente comprador final cualificado con fondos listos. Busca piso exterior de al menos 3 dormitorios y 2 baños con ascensor. Rango 750k - 950k. Colaboro 50/50 con quien tenga el inmueble.',
+        'description_private' => 'Honorarios pactados con comprador: 2.5%. Comparto 50/50 honorarios de la propiedad aportada.',
+        'images_json' => json_encode(['assets/media/property-defaults/piso-default.jpg']),
+        'features_json' => json_encode(['Exterior', 'Ascensor', 'Comprador Cualificado', 'Fondo Disponible']),
+        'status' => 'active',
+        'privacy_scope' => 'global_public'
+    ],
+    [
+        'record_type' => 'need',
+        'record_key' => 'need_malaga_inversor_02',
+        'user_id' => 1,
+        'user_email' => 'admin@compracaptacion.com',
+        'title' => 'Inversor busca edificio o paquete de pisos en Málaga Centro',
+        'property_type' => 'edificio',
+        'operation_type' => 'colaboracion_50_50',
+        'price' => 3500000,
+        'commission_percentage' => 50.0,
+        'commission_amount' => 52500.0,
+        'province' => 'Málaga',
+        'municipality' => 'Málaga',
+        'zone' => 'Centro Histórico / Soho',
+        'address_public' => 'Málaga Capital',
+        'address_private' => 'Fondo patrimonial Family Office de Madrid. Contacto: Sr. Alarcón 655443322',
+        'bedrooms' => 10,
+        'bathrooms' => 8,
+        'surface_m2' => 850,
+        'is_exclusive' => 0,
+        'description_public' => 'Family office busca edificio residencial para reforma o rentabilidad en Málaga capital. Capacidad de cierre en menos de 30 días.',
+        'description_private' => 'Colaboración 50/50 garantizada con NDA previo.',
+        'images_json' => json_encode(['assets/media/property-defaults/edificio-default.jpg']),
+        'features_json' => json_encode(['Inversión', 'Edificio', 'Family Office', 'Pago al Contado']),
+        'status' => 'active',
+        'privacy_scope' => 'global_public'
+    ]
+];
+
+$stmt = $db->prepare("INSERT OR IGNORE INTO records (
+    record_type, record_key, user_id, user_email, title, property_type, operation_type,
+    price, commission_percentage, commission_amount, province, municipality, zone,
+    address_public, address_private, bedrooms, bathrooms, surface_m2, is_exclusive,
+    description_public, description_private, images_json, features_json, status, privacy_scope, is_demo
+) VALUES (
+    :record_type, :record_key, :user_id, :user_email, :title, :property_type, :operation_type,
+    :price, :commission_percentage, :commission_amount, :province, :municipality, :zone,
+    :address_public, :address_private, :bedrooms, :bathrooms, :surface_m2, :is_exclusive,
+    :description_public, :description_private, :images_json, :features_json, :status, :privacy_scope, 1
+)");
+
+$count = 0;
+foreach ($properties as $p) {
+    $stmt->execute($p);
+    $count++;
+}
+
+echo json_encode(['ok' => true, 'seeded' => $count]);

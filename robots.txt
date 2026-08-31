@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /area-privada/
+Disallow: /crm/
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+
+Sitemap: https://compracaptacion.com/sitemap_index.xml

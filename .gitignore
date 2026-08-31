@@ -1,0 +1,38 @@
+# Environment and Credentials
+.env
+.env.local
+.env.*.local
+*.env
+
+# Local diagnostics, one-off scripts and scratch data
+create_user_tmp.php
+upg_user_tmp.php
+debug.php
+test_exec.php
+test.txt
+scratch_*.json
+
+# SQLite & Runtime Database Files
+data/*.sqlite
+data/*.db
+data/cache/*
+!data/README.md
+
+# Logs and Session Dumps
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Node dependencies
+node_modules/
+dist/
+.pnpm-store/
+
+# OS and Editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

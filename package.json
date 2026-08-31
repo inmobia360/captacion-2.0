@@ -1,0 +1,21 @@
+{
+  "name": "compracaptacion",
+  "version": "1.6.0",
+  "description": "Compra Captación - Plataforma de Colaboración entre Profesionales Inmobiliarios",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "test": "node tests/validate_syntax.js",
+    "lint": "node tests/validate_syntax.js",
+    "audit": "pnpm audit"
+  },
+  "keywords": [
+    "real-estate",
+    "profesionales-inmobiliarios",
+    "mls",
+    "spain",
+    "captacion"
+  ],
+  "author": "Compra Captación Team",
+  "license": "UNLICENSED"
+}

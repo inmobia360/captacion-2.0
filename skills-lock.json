@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "implementing-gdpr-data-protection-controls": {
+      "source": "mukul975/anthropic-cybersecurity-skills",
+      "sourceType": "github",
+      "skillPath": "skills/implementing-gdpr-data-protection-controls/SKILL.md",
+      "computedHash": "4852470330ac38f36aa58f4c92b8df280b63a4d219a9df3fd92f5e8fa814b944"
+    }
+  }
+}
