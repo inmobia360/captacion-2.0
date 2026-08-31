@@ -374,6 +374,16 @@ class CaptacionDB {
 
     public static function seedInitialData(): void {
         $db = self::$instance;
+        // En instalaciones nuevas sin credenciales explícitas no se deben
+        // ejecutar seeds parciales: podrían crear datos huérfanos y abortar
+        // la petición durante la inicialización de la aplicación.
+        $hasConfiguredSeed = (string)(getenv('CAPTACION_MASTER_ADMIN_EMAIL') ?: '') !== ''
+            || (string)(getenv('CAPTACION_SEED_PREMIUM_EMAIL') ?: '') !== ''
+            || (string)(getenv('CAPTACION_SEED_USER_PASSWORD') ?: '') !== '';
+        if (!$hasConfiguredSeed) {
+            return;
+        }
+
         // 1. El Master Admin solo se inicializa cuando existe configuración segura.
         $masterAdminEmail = (string)(getenv('CAPTACION_MASTER_ADMIN_EMAIL') ?: '');
         $masterAdminPassword = (string)(getenv('CAPTACION_MASTER_ADMIN_PASSWORD') ?: '');
