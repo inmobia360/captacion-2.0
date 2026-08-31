@@ -8,7 +8,19 @@ if (stripos($captacion_host, 'crm.') === 0 || stripos($captacion_host, 'crm.xn--
     exit;
 }
 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
+if (session_status() === PHP_SESSION_NONE) {
+    $captacion_session_host = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
+    $captacion_session_domain = str_contains($captacion_session_host, 'hostingersite.com') ? '' : '.compracaptacion.com';
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'domain' => $captacion_session_domain,
+        'secure' => true,
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+    session_start();
+}
 require_once __DIR__ . '/api/database.php';
 require_once __DIR__ . '/api/auth.php';
 

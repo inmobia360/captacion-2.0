@@ -9,6 +9,16 @@ require_once CAPTACION_ROOT . '/api/database.php';
 $db = CaptacionDB::get();
 
 if (session_status() === PHP_SESSION_NONE) {
+    $sessionHost = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
+    $sessionDomain = str_contains($sessionHost, 'hostingersite.com') ? '' : '.compracaptacion.com';
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'domain' => $sessionDomain,
+        'secure' => true,
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
     session_start();
 }
 

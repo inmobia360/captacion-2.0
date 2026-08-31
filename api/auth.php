@@ -6,6 +6,8 @@ require_once __DIR__ . '/database.php';
 
 // Puente de sesión seguro para el Panel Premium: solo permite el origen exacto del subdominio.
 $premiumOrigin = 'https://pro.compracaptacion.com';
+$sessionHost = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
+$sessionDomain = str_contains($sessionHost, 'hostingersite.com') ? '' : '.compracaptacion.com';
 if (($_SERVER['HTTP_ORIGIN'] ?? '') === $premiumOrigin) {
     header('Access-Control-Allow-Origin: ' . $premiumOrigin);
     header('Access-Control-Allow-Credentials: true');
@@ -20,7 +22,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_set_cookie_params([
         'lifetime' => 0,
         'path' => '/',
-        'domain' => '.compracaptacion.com',
+        'domain' => $sessionDomain,
         'secure' => true,
         'httponly' => true,
         'samesite' => 'Lax'
