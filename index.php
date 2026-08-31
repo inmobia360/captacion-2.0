@@ -3052,7 +3052,7 @@ $captacion_rest_nonce = $captacion_is_logged_in ? $captacion_wp_rest_nonce : '';
               </div>
               <div class="mt-3 pt-2 border-t border-slate-200/50 dark:border-slate-700/50 flex justify-between items-center">
                 <span class="text-xs text-slate-400">Protegidas 50/50</span>
-                <a href="#/oportunidades" class="text-xs font-bold text-blue hover:underline">Ver cartera →</a>
+                <a href="/oportunidades" class="text-xs font-bold text-blue hover:underline">Ver cartera →</a>
               </div>
             </div>
 
@@ -3071,7 +3071,7 @@ $captacion_rest_nonce = $captacion_is_logged_in ? $captacion_wp_rest_nonce : '';
               </div>
               <div class="mt-3 pt-2 border-t border-slate-200/50 dark:border-slate-700/50 flex justify-between items-center">
                 <span class="text-xs text-slate-400">Cualificadas</span>
-                <a href="#/buscar-captaciones" class="text-xs font-bold text-emerald-500 hover:underline">Ver demandas →</a>
+                <a href="/demandas" class="text-xs font-bold text-emerald-500 hover:underline">Ver demandas →</a>
               </div>
             </div>
 
@@ -3107,7 +3107,7 @@ $captacion_rest_nonce = $captacion_is_logged_in ? $captacion_wp_rest_nonce : '';
               </div>
               <div class="mt-3 pt-2 border-t border-emerald-500/20 flex justify-between items-center">
                 <span class="text-xs text-emerald-400/80">Listas para 50/50</span>
-                <a href="#/coincidencias-ventas" class="text-xs font-bold text-emerald-300 hover:underline">Ver cruces →</a>
+                <a href="/coincidencias-ventas" class="text-xs font-bold text-emerald-300 hover:underline">Ver cruces →</a>
               </div>
             </div>
           </div>

@@ -2067,6 +2067,7 @@ if (type === 'Finca rústica con vivienda' || type === 'Finca rústica' || type 
         script.onload = () => { script.dataset.loaded = 'true'; resolve(); };
         script.onerror = reject;
         document.head.appendChild(script);
+        window.setTimeout(() => reject(new Error(`Tiempo agotado cargando ${id}`)), 8000);
       });
     }
 
@@ -7029,7 +7030,7 @@ operation: operation,
     }
 
     function captacionDismissCookieNotice() {
-      try { sessionStorage.setItem('captacion_cookie_notice_dismissed_v1', '1'); } catch (error) {}
+      try { localStorage.setItem('captacion_cookie_notice_dismissed_v1', '1'); } catch (error) {}
       captacionHideCookieNotice();
     }
 
@@ -7049,7 +7050,7 @@ operation: operation,
       const notice = document.getElementById('captacion-cookie-notice');
       if (!notice) return;
       let dismissed = false;
-      try { dismissed = sessionStorage.getItem('captacion_cookie_notice_dismissed_v1') === '1'; } catch (error) {}
+      try { dismissed = localStorage.getItem('captacion_cookie_notice_dismissed_v1') === '1'; } catch (error) {}
       if (dismissed || captacionIsComplianzVisible()) return;
       const hasConsentCookie = document.cookie.split(';').some(cookie => /(^|\s)cmplz_|(^|\s)cmplz_consented_services/i.test(cookie));
       if (!hasConsentCookie) notice.classList.remove('is-hidden');
