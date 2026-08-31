@@ -2208,6 +2208,7 @@ if (type === 'Finca rústica con vivienda' || type === 'Finca rústica' || type 
           // El contenedor puede conservar el estado de carga aunque Leaflet ya esté listo.
           mapEl.innerHTML = '';
           homeMap = L.map('home-map', { scrollWheelZoom: false, boxZoom: true }).setView(SPAIN_DEFAULT_MAP_CENTER, SPAIN_DEFAULT_MAP_ZOOM);
+          mapEl.querySelector(':scope > .p-8')?.remove();
           addBaseTileLayer(homeMap);
           homeMapLayer = L.layerGroup().addTo(homeMap);
           homeMap.scrollWheelZoom.disable();
