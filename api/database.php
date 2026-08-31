@@ -369,6 +369,19 @@ class CaptacionDB {
         try { $db->exec("ALTER TABLE records ADD COLUMN data_origin TEXT NOT NULL DEFAULT 'manual'"); } catch (Throwable $e) {}
         try { $db->exec("ALTER TABLE records ADD COLUMN deleted_at DATETIME NULL"); } catch (Throwable $e) {}
 
+        // Auditoría transversal usada por login, CRM y acciones sensibles.
+        // Debe existir antes de procesar cualquier autenticación.
+        $db->exec("CREATE TABLE IF NOT EXISTS audit_logs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL DEFAULT 0,
+            action TEXT NOT NULL DEFAULT '',
+            ip_address TEXT NOT NULL DEFAULT '',
+            user_agent TEXT NOT NULL DEFAULT '',
+            details TEXT NOT NULL DEFAULT '{}',
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )");
+        $db->exec("CREATE INDEX IF NOT EXISTS idx_audit_logs_action_ip_created ON audit_logs (action, ip_address, created_at)");
+
         self::seedInitialData();
     }
 
