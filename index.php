@@ -5973,12 +5973,10 @@ $captacion_rest_nonce = $captacion_is_logged_in ? $captacion_wp_rest_nonce : '';
 
 
 
-                <?php if (defined('CMC_VERSION')) : ?>
-                <section class="exec-credit-banner" aria-label="Acceso rápido a créditos">
-                  <div class="exec-credit-banner-copy"><span class="exec-credit-banner-kicker">Descubre tus créditos</span><p class="exec-credit-banner-text">Consulta tus créditos, sus ventajas y cómo conseguir más dentro de la plataforma.</p></div>
-                  <button type="button" class="exec-credit-banner-action" onclick="switchPrivateDashboardPanel('credits', true)">Ver mi sección de créditos</button>
+                <section id="welcome-credit-alert" class="exec-credit-banner hidden" aria-live="polite" aria-label="Créditos de bienvenida">
+                  <div class="exec-credit-banner-copy"><span class="exec-credit-banner-kicker">Tienes créditos de bienvenida disponibles</span><p id="welcome-credit-alert-text" class="exec-credit-banner-text">Úsalos para descubrir oportunidades y contactar con profesionales compatibles antes de que caduquen.</p></div>
+                  <button type="button" class="exec-credit-banner-action" onclick="switchPrivateDashboardPanel('credits', true)">Ver mis créditos</button>
                 </section>
-                <?php endif; ?>
                 <section class="exec-kpis">
                   <button type="button" onclick="openExecutiveDestination('offers')" class="exec-card exec-kpi exec-kpi-blue" aria-label="Acceder a captaciones publicadas"><div class="exec-kpi-top"><span class="exec-icon">▥</span><div><span class="exec-kpi-label">Captaciones publicadas</span><strong id="exec-kpi-offers">0</strong></div></div><p id="exec-kpi-offers-value" class="exec-kpi-value">0 € en cartera</p><p class="exec-trend neutral"><b>—</b> Datos actuales</p><span class="exec-card-cta">Acceder a captaciones →</span></button>
                   <button type="button" onclick="openExecutiveDestination('demands')" class="exec-card exec-kpi exec-kpi-green" aria-label="Acceder a demandas activas"><div class="exec-kpi-top"><span class="exec-icon">⌘</span><div><span class="exec-kpi-label">Demandas activas</span><strong id="exec-kpi-demands">0</strong></div></div><p id="exec-kpi-demands-value" class="exec-kpi-value">0 € en demandas</p><p class="exec-trend neutral"><b>—</b> Datos actuales</p><span class="exec-card-cta">Acceder a demandas →</span></button>

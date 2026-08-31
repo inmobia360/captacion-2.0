@@ -60,6 +60,7 @@ if ($action === 'status') {
             'available_balance' => (float)$wallet['available_balance'],
             'consumed_balance' => (float)$wallet['consumed_balance'],
             'pending_balance' => (float)$wallet['pending_balance'],
+            'expires_at' => $wallet['expires_at'] ?? null,
         ],
         'plans' => $plans,
         'quick_recharges' => $quickRecharges

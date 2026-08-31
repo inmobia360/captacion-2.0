@@ -10567,12 +10567,21 @@ async function loadAndRenderCreditsLedger() {
         const response = await fetch(CAPTACION_MAILCHIMP.creditsStatusEndpoint, { credentials:'same-origin', headers:{'X-WP-Nonce':CAPTACION_MAILCHIMP.nonce} });
         if (!response.ok) return;
         const data = await response.json(); const wallet = data.wallet || {}; const welcome = data.welcome || {}; const referral = data.referral || {};
+        const formatCredits = value => Number(value || 0).toFixed(2).replace('.', ',');
+        const welcomeAlert = document.getElementById('welcome-credit-alert');
+        const welcomeAlertText = document.getElementById('welcome-credit-alert-text');
+        const expiresAt = wallet.expires_at ? new Date(String(wallet.expires_at).replace(' ', 'T')) : null;
+        const hasActiveWelcome = Number(wallet.available_balance || 0) > 0 && expiresAt && expiresAt.getTime() > Date.now();
+        if (welcomeAlert) welcomeAlert.classList.toggle('hidden', !hasActiveWelcome);
+        if (welcomeAlertText && hasActiveWelcome) {
+          const days = Math.max(1, Math.ceil((expiresAt.getTime() - Date.now()) / 86400000));
+          welcomeAlertText.textContent = `Te quedan ${formatCredits(wallet.available_balance)} créditos de bienvenida. Úsalos para descubrir oportunidades antes de que caduquen en ${days} ${days === 1 ? 'día' : 'días'}.`;
+        }
         const total = Math.max(5, Number(welcome.required_listings || 5)); const progress = Math.min(100, Math.round((Number(welcome.valid_listings || 0) / total) * 70 + (Number(welcome.current_active_days || 0) / 7) * 30));
         const bar=document.getElementById('dashboard-welcome-bar'); if(bar) bar.style.width=`${progress}%`;
         const status=document.getElementById('dashboard-welcome-status'); if(status) status.textContent=welcome.status==='active'?'Créditos activos':`${welcome.valid_listings || 0} de ${total} anuncios`;
         const help=document.getElementById('dashboard-welcome-help'); if(help) help.textContent=welcome.status==='active' ? `Activos hasta ${welcome.credits_expire_at || 'la fecha indicada'}.` : `Permanencia: ${welcome.current_active_days || 0} de 7 días. Los anuncios deben ser diferentes y mantenerse activos.`;
         const referralHelp=document.getElementById('dashboard-referral-help'); if(referralHelp) referralHelp.textContent=`Tu enlace de referidos: ${referral.url || ''}`;
-        const formatCredits = value => Number(value || 0).toFixed(2).replace('.', ',');
         const value=document.getElementById('dashboard-credit-summary-value'); if(value) value.textContent=formatCredits(wallet.available_balance || 3);
         [['dashboard-credit-available','available_balance'],['dashboard-credit-pending','pending_balance'],['dashboard-credit-reserved','reserved_balance'],['dashboard-credit-consumed','consumed_balance']].forEach(([id,key]) => { const element=document.getElementById(id); if(element) element.textContent=formatCredits(wallet[key] || (key==='available_balance'?3:0)); });
         updateDashboardCreditSummary();
