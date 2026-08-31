@@ -2440,7 +2440,7 @@ $captacion_rest_nonce = $captacion_is_logged_in ? $captacion_wp_rest_nonce : '';
             <span>+ Publicar</span>
           </button>
           <button type="button" onclick="switchPrivateDashboardPanel('overview', true); navigateTo('/area-privada');" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold tracking-wide transition-all shadow-md hover:scale-105 border border-emerald-500/50" title="Acceder directamente al Panel Ejecutivo">
-            <span aria-hidden="true">👤</span><span>Acceso a Sesión</span>
+            <span aria-hidden="true">👤</span><span>Mi panel profesional</span>
           </button>
         </div>
       </nav>

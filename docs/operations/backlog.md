@@ -23,6 +23,10 @@ La arquitectura de agentes y la copia inicial del proyecto están preparadas. No
   `docs/operations/seo-staging-release-gate.md`.
 - [ ] Resolver como bloqueos previos: sitemap XML válido, política `noindex` de
   Pro y verificación de atributos de cookies tras autenticación.
+- [x] Resolver HTTP 500 en la raíz del staging y repetir smoke tests.
+- [x] Resolver HTTP 500 de `api/auth.php?action=login`: faltaba la tabla
+  `audit_logs`; el login ficticio ya devuelve error controlado.
+- [ ] Probar login válido, logout y revocación con una cuenta de staging.
 
 ## Regla de la secretaria
 
