@@ -4,6 +4,19 @@
  */
 require_once __DIR__ . '/database.php';
 
+function captacion_public_base_url(): string {
+    $host = strtolower(trim((string)($_SERVER['HTTP_HOST'] ?? '')));
+    $allowedHosts = [
+        'compracaptacion.com',
+        'www.compracaptacion.com',
+        'snow-jellyfish-183518.hostingersite.com'
+    ];
+    if (in_array($host, $allowedHosts, true)) {
+        return 'https://' . $host;
+    }
+    return 'https://compracaptacion.com';
+}
+
 // Puente de sesión seguro para el Panel Premium: solo permite el origen exacto del subdominio.
 $premiumOrigin = 'https://pro.compracaptacion.com';
 $sessionHost = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
@@ -214,19 +227,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Enviar email de activación
-        $activationUrl = "https://compracaptacion.com/api/auth.php?action=verify_email&token=" . urlencode($token);
+        $publicBaseUrl = captacion_public_base_url();
+        $activationUrl = $publicBaseUrl . "/api/auth.php?action=verify_email&token=" . urlencode($token);
         $subject = "=?UTF-8?B?" . base64_encode("Activa tu cuenta en Compra Captación (+3 créditos de bienvenida / 30 días)") . "?=";
-        $message = "Hola " . ($fullName ?: 'Profesional') . ",\n\n"
+        $recipientName = $fullName ?: 'Profesional';
+        $message = "Hola " . $recipientName . ",\n\n"
                  . "Gracias por registrarte en Compra Captación.\n\n"
                  . "Para activar tu cuenta profesional y desbloquear tus 3 créditos gratis de bienvenida (válidos durante tus primeros 30 días, no acumulables), haz clic en el siguiente enlace:\n\n"
                  . $activationUrl . "\n\n"
                  . "Si no has solicitado esta cuenta, puedes ignorar este mensaje de forma segura.\n\n"
                  . "Atentamente,\n"
-                 . "El equipo de Compra Captación\nhttps://compracaptacion.com";
+                 . "El equipo de Compra Captación\n" . $publicBaseUrl;
+        $safeName = htmlspecialchars($recipientName, ENT_QUOTES, 'UTF-8');
+        $safeActivationUrl = htmlspecialchars($activationUrl, ENT_QUOTES, 'UTF-8');
+        $safeBaseUrl = htmlspecialchars($publicBaseUrl, ENT_QUOTES, 'UTF-8');
+        $htmlMessage = '<!doctype html><html lang="es"><body style="margin:0;background:#f4f7fb;font-family:Arial,sans-serif;color:#17243a;">'
+            . '<div style="max-width:600px;margin:24px auto;padding:0 16px;">'
+            . '<div style="background:#0b1528;border-radius:18px 18px 0 0;padding:24px 28px;color:#fff;">'
+            . '<div style="font-size:20px;font-weight:700;">Compra Captación</div>'
+            . '<div style="margin-top:6px;font-size:13px;color:#b9c8dd;">Colaboración inmobiliaria entre profesionales</div></div>'
+            . '<div style="background:#fff;padding:32px 28px;border-radius:0 0 18px 18px;box-shadow:0 8px 30px rgba(18,38,63,.08);">'
+            . '<p style="font-size:16px;">Hola ' . $safeName . ',</p>'
+            . '<p>Gracias por registrarte en Compra Captación.</p>'
+            . '<p>Activa tu cuenta profesional para desbloquear tus <strong>3 créditos de bienvenida</strong>, válidos durante tus primeros 30 días.</p>'
+            . '<p style="text-align:center;margin:28px 0;"><a href="' . $safeActivationUrl . '" style="display:inline-block;background:#2563eb;color:#fff;text-decoration:none;padding:14px 22px;border-radius:10px;font-weight:700;">Activar mi cuenta</a></p>'
+            . '<p style="font-size:12px;color:#64748b;word-break:break-all;">Si el botón no funciona, copia este enlace:<br><a href="' . $safeActivationUrl . '">' . $safeActivationUrl . '</a></p>'
+            . '<p style="font-size:13px;color:#64748b;">Si no has solicitado esta cuenta, puedes ignorar este mensaje de forma segura.</p>'
+            . '<p style="margin-bottom:0;">El equipo de Compra Captación<br><a href="' . $safeBaseUrl . '">' . $safeBaseUrl . '</a></p>'
+            . '</div></div></body></html>';
         $headers = "From: Compra Captación <no-reply@compracaptacion.com>\r\n"
                  . "Reply-To: soporte@compracaptacion.com\r\n"
+                 . "MIME-Version: 1.0\r\n"
+                 . "Content-Type: multipart/alternative; boundary=CompraCaptacionBoundary\r\n"
                  . "X-Mailer: PHP/" . phpversion();
-        @mail($email, $subject, $message, $headers);
+        $mailBody = "--CompraCaptacionBoundary\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n"
+            . $message . "\r\n\r\n--CompraCaptacionBoundary\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n"
+            . $htmlMessage . "\r\n--CompraCaptacionBoundary--\r\n";
+        @mail($email, $subject, $mailBody, $headers);
 
         // Registrar auditoría
         $db->prepare("INSERT INTO audit_logs (user_id, action, ip_address, user_agent, details) VALUES (?, 'register_pending_email', ?, ?, ?)")
