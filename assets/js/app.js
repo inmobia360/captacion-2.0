@@ -2220,6 +2220,7 @@ if (type === 'Finca rústica con vivienda' || type === 'Finca rústica' || type 
       setTimeout(() => homeMap?.invalidateSize(), 50);
       setTimeout(() => homeMap?.invalidateSize(), 350);
       renderHomeMapMarkers();
+      mapEl.querySelector(':scope > .p-8')?.remove();
     }
 
     function renderHomeMapMarkers() {
