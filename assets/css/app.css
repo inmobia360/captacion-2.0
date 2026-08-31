@@ -119,6 +119,9 @@ body {
 }
 
 /* Leaflet Customizations */
+#home-map:has(> .leaflet-map-pane) > .p-8 {
+  display: none !important;
+}
 .leaflet-popup-content-wrapper {
   background: #111827 !important;
   color: #f9fafb !important;
