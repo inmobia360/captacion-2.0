@@ -2195,7 +2195,7 @@ if (type === 'Finca rústica con vivienda' || type === 'Finca rústica' || type 
     async function initHomeMap() {
       const mapEl = document.getElementById('home-map');
       if (!mapEl) return;
-      if (!window.L) {
+      if (!window.L && !homeMap) {
         mapEl.innerHTML = '<div class="p-8 text-sm text-slate-500">Cargando mapa interactivo...</div>';
         const loaded = await ensureLeafletAssets();
         if (!loaded || !window.L) {
