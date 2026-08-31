@@ -336,6 +336,12 @@ $captacion_site_title = $captacion_current_seo['title'];
 $captacion_meta_description = $captacion_current_seo['description'];
 $captacion_canonical_url = $captacion_current_seo['canonical'];
 $captacion_robots = $captacion_current_seo['robots'] ?? 'index, follow';
+$captacion_is_staging_host = str_contains(strtolower((string)($_SERVER['HTTP_HOST'] ?? '')), 'hostingersite.com');
+if ($captacion_is_staging_host) {
+    // Staging must never compete with the production domain in search engines.
+    $captacion_robots = 'noindex, nofollow, noarchive';
+    $captacion_canonical_url = '';
+}
 
 $captacion_contact_email = 'hola@compracaptacion.com';
 $captacion_stripe_link = captacion_app_setting('stripe_payment_link');
@@ -434,7 +440,7 @@ $captacion_rest_nonce = $captacion_is_logged_in ? $captacion_wp_rest_nonce : '';
   <meta name="robots" content="<?php echo esc_attr($captacion_robots); ?>" />
   <meta name="description" content="<?php echo esc_attr($captacion_meta_description); ?>" />
   <title><?php echo esc_html($captacion_site_title); ?></title>
-  <link id="captacion-canonical" rel="canonical" href="<?php echo esc_url($captacion_canonical_url); ?>" />
+  <?php if ($captacion_canonical_url !== ''): ?><link id="captacion-canonical" rel="canonical" href="<?php echo esc_url($captacion_canonical_url); ?>" /><?php endif; ?>
 
   <!-- Progressive Web App (PWA) Manifest & Mobile Meta Tags -->
   <link rel="manifest" href="/manifest.json" />

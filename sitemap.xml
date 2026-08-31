@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://compracaptacion.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://compracaptacion.com/como-funciona</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://compracaptacion.com/precios</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://compracaptacion.com/marketplace</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://compracaptacion.com/demandas</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://compracaptacion.com/recursos</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://compracaptacion.com/aviso-legal</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://compracaptacion.com/privacidad</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://compracaptacion.com/cookies</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>

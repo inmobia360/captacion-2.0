@@ -21,6 +21,9 @@ DirectoryIndex index.php index.html
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
+    # robots.txt must be environment-aware: staging is never crawlable.
+    RewriteRule ^robots\.txt$ robots.php [L]
+
     # Do not rewrite existing files or directories
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
